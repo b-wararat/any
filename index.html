@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journey to Our Anniversary 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #fce4ec 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: white;
+            padding: 3rem;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .icon-box {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #f48fb1 0%, #ce93d8 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #ec407a 0%, #ab47bc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin: 2rem 0;
+        }
+
+        input[type="password"],
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #f48fb1;
+            border-radius: 1rem;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ec407a;
+            box-shadow: 0 0 0 3px rgba(236, 64, 122, 0.1);
+        }
+
+        .btn {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #f48fb1 0%, #ce93d8 100%);
+            color: white;
+            border: none;
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(244, 143, 177, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #f48fb1 0%, #ce93d8 100%);
+            transition: width 0.5s ease;
+        }
+
+        /* Quiz Options */
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-option {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            border: 3px solid transparent;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .quiz-option:hover {
+            transform: translateX(10px);
+            border-color: #f48fb1;
+        }
+
+        .quiz-option.selected {
+            background: linear-gradient(135deg, #f48fb1 0%, #ce93d8 100%);
+            color: white;
+            border-color: #ec407a;
+        }
+
+        /* Memory Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #f48fb1 0%, #ce93d8 100%);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            transform-style: preserve-3d;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .memory-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .memory-card.flipped {
+            background: white;
+            border: 3px solid #f48fb1;
+        }
+
+        .memory-card.flipped img {
+            display: block;
+        }
+
+        .memory-card.flipped .card-back {
+            display: none;
+        }
+
+        .memory-card.matched {
+            background: white;
+            border: 3px solid #81c784;
+            cursor: default;
+        }
+
+        .memory-card.matched img {
+            display: block;
+        }
+
+        .memory-card.matched .card-back {
+            display: none;
+        }
+
+        .card-back {
+            font-size: 2.5rem;
+        }
+
+        .upload-section {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .upload-section p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #f48fb1 0%, #ce93d8 100%);
+            color: white;
+            border-radius: 0.8rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .preview-item {
+            aspect-ratio: 1;
+            border-radius: 0.8rem;
+            overflow: hidden;
+            border: 2px solid #f48fb1;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+        }
+
+        .popup {
+            background: white;
+            padding: 3rem;
+            border-radius: 2rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            animation: bounce 0.5s ease-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .popup .emoji {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .popup h3 {
+            color: #ec407a;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .popup .close-btn {
+            margin-top: 1.5rem;
+        }
+
+        .hint {
+            background: #fff3e0;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            color: #f57c00;
+        }
+
+        .step-indicator {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .emoji-large {
+            font-size: 4rem;
+            margin: 1rem 0;
+        }
+
+        /* Final Page */
+        .final-card {
+            background: linear-gradient(135deg, #fff 0%, #fce4ec 100%);
+        }
+
+        .gallery-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .gallery-section h3 {
+            color: #ec407a;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item .placeholder {
+            text-align: center;
+            color: #999;
+        }
+
+        .gallery-item .placeholder .emoji {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .special-moment-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #f57c00;
+        }
+
+        .special-moment-box p {
+            color: #e65100;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f48fb1;
+            position: absolute;
+            animation: confetti-fall 3s linear;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .card {
+                padding: 2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Step 1: Password -->
+        <div class="step active" id="step1">
+            <div class="card">
+                <div class="step-indicator">ขั้นตอนที่ 1/6</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 16.6%"></div>
+                </div>
+                <div class="icon-box">🔒</div>
+                <h1>ยินดีต้อนรับ! 💕</h1>
+                <p>เริ่มต้นการเดินทางสู่ความทรงจำของเรากันเลย</p>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="ใส่รหัสผ่าน">
+                    <div class="hint">💡 คำใบ้: 1234</div>
+                </div>
+                <button class="btn" onclick="checkPassword()">ถัดไป →</button>
+            </div>
+        </div>
+
+        <!-- Step 2: First Meeting Date -->
+        <div class="step" id="step2">
+            <div class="card">
+                <div class="step-indicator">ขั้นตอนที่ 2/6</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 33.3%"></div>
+                </div>
+                <div class="icon-box">💑</div>
+                <h2>เราพบกันครั้งแรกเมื่อไหร่?</h2>
+                <p>เลือกวันที่พิเศษของเรา</p>
+                <div class="input-group">
+                    <input type="date" id="meetingDate">
+                    <div class="hint">💡 คำใบ้: 1 มกราคม 2024</div>
+                </div>
+                <button class="btn" onclick="checkMeetingDate()">ถัดไป →</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Love Question -->
+        <div class="step" id="step3">
+            <div class="card">
+                <div class="step-indicator">ขั้นตอนที่ 3/6</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                </div>
+                <div class="icon-box">💖</div>
+                <h2>คำถามสำคัญ...</h2>
+                <p style="font-size: 1.5rem; margin: 2rem 0;">รักฉันไหม? 💕</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectLove(this, 'yes')">
+                        <span style="font-size: 2rem; margin-right: 1rem;">😍</span>
+                        <span style="font-size: 1.3rem;">รัก รักมากเลย!</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectLove(this, 'no')">
+                        <span style="font-size: 2rem; margin-right: 1rem;">😐</span>
+                        <span style="font-size: 1.3rem;">ไม่รัก</span>
+                    </div>
+                </div>
+                <button class="btn" onclick="checkLove()" id="loveBtn" disabled>ตอบคำถาม</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Love Story -->
+        <div class="step" id="step4">
+            <div class="card">
+                <div class="step-indicator">ขั้นตอนที่ 4/6</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 66.6%"></div>
+                </div>
+                <div class="icon-box">💭</div>
+                <h2>ช่วงเวลาที่พิเศษที่สุด</h2>
+                <p>เล่าช่วงเวลาที่มีความสุขที่สุดของเราให้ฟังหน่อย</p>
+                <div class="input-group">
+                    <input type="text" id="specialMoment" placeholder="เช่น วันที่เราไปทะเลด้วยกัน...">
+                </div>
+                <button class="btn" onclick="submitSpecialMoment()">ถัดไป →</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Love Message -->
+        <div class="step" id="step5">
+            <div class="card">
+                <div class="step-indicator">ขั้นตอนที่ 5/6</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 83.3%"></div>
+                </div>
+                <div class="icon-box">💌</div>
+                <h2>ข้อความจากใจ</h2>
+                <p>เขียนข้อความถึงคนที่คุณรัก</p>
+                <div class="input-group">
+                    <input type="text" id="loveMessage" placeholder="เขียนข้อความที่นี่...">
+                </div>
+                <button class="btn" onclick="submitMessage()">ส่งข้อความ 💕</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Final Celebration -->
+        <div class="step" id="step6">
+            <div class="card final-card">
+                <div class="step-indicator">ขั้นตอนที่ 6/6</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%"></div>
+                </div>
+                <div class="icon-box">🎉</div>
+                <h1>ยินดีด้วย!</h1>
+                <div class="emoji-large">🎊💕🎈</div>
+                <h2>Happy Anniversary!</h2>
+                <p style="font-size: 1.3rem; color: #ec407a;">
+                    365 วันของความสุขที่มีด้วยกัน
+                </p>
+                <div style="background: white; padding: 2rem; border-radius: 1rem; margin: 2rem 0; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <p style="font-size: 1.1rem; color: #333;">
+                        "ขอบคุณที่เดินทางผ่านทุกขั้นตอนมาด้วยกัน<br>
+                        เหมือนกับทุกวันที่เราใช้ชีวิตร่วมกัน<br>
+                        รักเธอมากกว่าทุกสิ่ง 💖"
+                    </p>
+                </div>
+                <p id="userMessage" style="font-style: italic; color: #666; margin-top: 2rem;"></p>
+
+                <div class="special-moment-box" id="specialMomentBox" style="display: none;">
+                    <p>💫 ช่วงเวลาพิเศษ: <span id="displayMoment"></span></p>
+                </div>
+
+                <!-- Gallery Section -->
+                <div class="gallery-section">
+                    <h3>แกลเลอรี่ความทรงจำของเรา 📸</h3>
+                    <div class="gallery-grid" id="finalGallery">
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop" alt="Memory 1">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=400&fit=crop" alt="Memory 2">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1529903873-f8a1f2a71e5f?w=400&h=400&fit=crop" alt="Memory 3">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=400&fit=crop" alt="Memory 4">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=400&fit=crop" alt="Memory 5">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&h=400&fit=crop" alt="Memory 6">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="restartJourney()">เริ่มต้นใหม่ 🔄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <div class="emoji" id="popupEmoji">😢</div>
+            <h3 id="popupTitle">ลองใหม่อีกครั้งนะ!</h3>
+            <p id="popupMessage">คำตอบยังไม่ถูกต้องค่ะ</p>
+            <button class="btn close-btn" onclick="handlePopupClose()">ตกลง</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedLoveAnswer = null;
+        let pendingNextStep = null;
+
+        // Password Check
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === '1234') {
+                nextStep(1, 2);
+            } else {
+                showPopup('😢', 'อ๊ะ! ลองใหม่อีกครั้ง', 'รหัสผ่านไม่ถูกต้องค่ะ 💕', null);
+            }
+        }
+
+        // Meeting Date Check
+        function checkMeetingDate() {
+            const date = document.getElementById('meetingDate').value;
+            if (date === '2024-01-01') {
+                nextStep(2, 3);
+            } else {
+                showPopup('💔', 'ยังไม่ใช่วันนี้นะ', 'ลองนึกดูอีกครั้งนะคะ วันที่เราพบกันครั้งแรก', null);
+            }
+        }
+
+        // Love Question Selection
+        function selectLove(element, answer) {
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedLoveAnswer = answer;
+            document.getElementById('loveBtn').disabled = false;
+        }
+
+        // Love Question Check
+        function checkLove() {
+            if (selectedLoveAnswer === 'yes') {
+                showPopup('🥰', 'ยินดีด้วย!', 'รักเธอเหมือนกันนะ รักมากๆ เลย! 💕✨', { from: 3, to: 4 });
+            } else {
+                showPopup('😭😭😭', 'ไม่นะ...', 'ทำไมไม่รักฉันล่ะ... 💔 ลองตอบใหม่อีกครั้งนะคะ ตอบจริงๆ จากใจเลยนะ 🥺', null);
+            }
+        }
+
+        // Special Moment
+        function submitSpecialMoment() {
+            const moment = document.getElementById('specialMoment').value;
+            if (moment.trim()) {
+                document.getElementById('displayMoment').textContent = moment;
+                document.getElementById('specialMomentBox').style.display = 'block';
+                nextStep(4, 5);
+            } else {
+                showPopup('💭', 'เล่าช่วงเวลาพิเศษด้วยนะ', 'อยากรู้ว่าช่วงเวลาไหนที่คุณมีความสุขที่สุด 💕', null);
+            }
+        }
+
+        // Love Message
+        function submitMessage() {
+            const message = document.getElementById('loveMessage').value;
+            if (message.trim()) {
+                document.getElementById('userMessage').textContent = `"${message}"`;
+                nextStep(5, 6);
+                createConfetti();
+            } else {
+                showPopup('💌', 'เขียนข้อความด้วยนะคะ', 'อยากฟังว่าคุณคิดอะไรอยู่ 💕', null);
+            }
+        }
+
+        // Navigation
+        function nextStep(current, next) {
+            document.getElementById(`step${current}`).classList.remove('active');
+            document.getElementById(`step${next}`).classList.add('active');
+        }
+
+        // Popup with navigation control
+        function showPopup(emoji, title, message, nextStepData) {
+            document.getElementById('popupEmoji').textContent = emoji;
+            document.getElementById('popupTitle').textContent = title;
+            document.getElementById('popupMessage').textContent = message;
+            document.getElementById('popupOverlay').classList.add('show');
+            pendingNextStep = nextStepData;
+        }
+
+        function handlePopupClose() {
+            closePopup();
+            if (pendingNextStep) {
+                nextStep(pendingNextStep.from, pendingNextStep.to);
+                pendingNextStep = null;
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('show');
+        }
+
+        // Confetti
+        function createConfetti() {
+            const colors = ['#f48fb1', '#ce93d8', '#81c784', '#ffb74d', '#4fc3f7'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // Restart
+        function restartJourney() {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('password').value = '';
+            document.getElementById('meetingDate').value = '';
+            document.getElementById('specialMoment').value = '';
+            document.getElementById('loveMessage').value = '';
+            selectedLoveAnswer = null;
+            pendingNextStep = null;
+        }
+
+        // Enter key support
+        document.getElementById('password')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        document.getElementById('specialMoment')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitSpecialMoment();
+        });
+
+        document.getElementById('loveMessage')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitMessage();
+        });
+    </script>
+</body>
+</html>
