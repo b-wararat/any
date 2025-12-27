@@ -660,7 +660,7 @@
         // Meeting Date Check
         function checkMeetingDate() {
             const date = document.getElementById('meetingDate').value;
-            if (date === '2024-01-01') {
+            if (date === '2024-01-01' || '2567-01-01') {
                 nextStep(2, 3);
             } else {
                 showPopup('💔', 'ยังไม่ใช่วันนี้นะ', 'ลองนึกดูอีกครั้งนะคะ วันที่เราพบกันครั้งแรก', null);
